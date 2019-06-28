@@ -10,8 +10,8 @@ from netCDF4 import Dataset
 #os.chdir(path)
 #year='2002'
 
-#year=str(sys.argv[1])
-year='2042'
+year=str(sys.argv[1])
+#year='2042'
 print(year)
 files=np.sort(glob.glob('day_files/day_lffd'+year+'*')).tolist()
 print(files)
