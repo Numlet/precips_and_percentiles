@@ -1,0 +1,21 @@
+cdo cat: Processed 567123955920 values from 22104 variables over 883920 timesteps [7504.63s 954MB]
+cdo runsum: Processed 1134250478305 values from 6 variables over 1767840 timesteps [39813.71s 3029MB]
+ 
+Batch Job Summary Report for Job "create_join_precips" (14903764) on daint
+-----------------------------------------------------------------------------------------------------
+             Submit            Eligible               Start                 End    Elapsed  Timelimit 
+------------------- ------------------- ------------------- ------------------- ---------- ---------- 
+2019-06-21T11:32:28 2019-06-21T11:32:28 2019-06-21T11:34:09 2019-06-22T11:34:45 1-00:00:36 1-00:00:00 
+-----------------------------------------------------------------------------------------------------
+Username    Account     Partition   NNodes   Energy
+----------  ----------  ----------  ------  --------------
+jvergara    pr04        normal           1          joules
+ 
+This job did not utilize any GPUs
+ 
+----------------------------------------------------------
+Scratch File System        Files       Quota
+--------------------  ----------  ----------
+/scratch/snx3000         1713265     2000000
+ 
+slurmstepd: error: *** JOB 14903764 ON nid02578 CANCELLED AT 2019-06-22T11:35:04 DUE TO TIME LIMIT ***

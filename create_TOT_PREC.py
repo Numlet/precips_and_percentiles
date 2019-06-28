@@ -16,25 +16,25 @@ import Jesuslib_eth as jle
 import time
 
 
-path='/scratch/snx3000/jvergara/6min_precip/'
-os.chdir(path)
+#path='/scratch/snx3000/jvergara/6min_precip/'
+#os.chdir(path)
 jle.Create_folder("1h_TOT_PREC")
 
 #original_data_path='/store/c2sm/pr04/jvergara/RUNS_IN_SCRATCH/GA_fine_ERA/lm_f/1h/'
 
 
 
+#year='2042'
 year=str(sys.argv[1])
-#year='2002'
 
 hours=jle.Hourly_time_list(start_date='2000010100',end_date='2000010500')
 hours=jle.Hourly_time_list(start_date='2000010100',end_date='2005010100')
-hours=jle.Hourly_time_list(start_date=year+'010100',end_date=str(int(year)+1)+'000000')
+hours=jle.Hourly_time_list(start_date=year+'010100',end_date=str(int(year)+1)+'010100')
 
 
-files_path=path+year+'/'
-
-files=glob.glob(files_path+'*')
+files_path=year+'/'
+#print'asdf'
+#files=glob.glob(files_path+'*')
 
 missing_hour_files=[]
 print(year)
@@ -59,26 +59,27 @@ for ih in range(len(hours)):
         prev_year=str(int(year)-1)
         hour=hours[ih]
         hour_minus=prev_year+'123123'
-        if not os.path.exists(path+prev_year+'/lffd'+hour_minus+'0600.nc'):
+        if not os.path.exists(prev_year+'/lffd'+hour_minus+'0600.nc'):
             print("Previous year folder does not exist.")
             print("Can not create first hour of year data")
             time.sleep(3)
             continue
-        files_to_concat.append(path+prev_year+'/lffd'+hour_minus+'0600.nc')
-        files_to_concat.append(path+prev_year+'/lffd'+hour_minus+'1200.nc')
-        files_to_concat.append(path+prev_year+'/lffd'+hour_minus+'1800.nc')
-        files_to_concat.append(path+prev_year+'/lffd'+hour_minus+'2400.nc')
-        files_to_concat.append(path+prev_year+'/lffd'+hour_minus+'3000.nc')
-        files_to_concat.append(path+prev_year+'/lffd'+hour_minus+'3600.nc')
-        files_to_concat.append(path+prev_year+'/lffd'+hour_minus+'4200.nc')
-        files_to_concat.append(path+prev_year+'/lffd'+hour_minus+'4800.nc')
-        files_to_concat.append(path+prev_year+'/lffd'+hour_minus+'5400.nc')
-        files_to_concat.append(path+prev_year+'/lffd'+hour+'0000.nc')
+        files_to_concat.append(prev_year+'/lffd'+hour_minus+'0600.nc')
+        files_to_concat.append(prev_year+'/lffd'+hour_minus+'1200.nc')
+        files_to_concat.append(prev_year+'/lffd'+hour_minus+'1800.nc')
+        files_to_concat.append(prev_year+'/lffd'+hour_minus+'2400.nc')
+        files_to_concat.append(prev_year+'/lffd'+hour_minus+'3000.nc')
+        files_to_concat.append(prev_year+'/lffd'+hour_minus+'3600.nc')
+        files_to_concat.append(prev_year+'/lffd'+hour_minus+'4200.nc')
+        files_to_concat.append(prev_year+'/lffd'+hour_minus+'4800.nc')
+        files_to_concat.append(prev_year+'/lffd'+hour_minus+'5400.nc')
+        files_to_concat.append(prev_year+'/lffd'+hour+'0000.nc')
         
     file_name=files_path+'lffd'+hour+'????.nc'
     file_name=' '.join(files_to_concat)
     for file in files_to_concat:
         if not os.path.exists(file):
+            print('waiting for file '+file)
             time.sleep(10*60)
             if not os.path.exists(file):continue
 #    if not files_path+'lffd'+hour+'0000.nc' in files:continue
@@ -101,11 +102,14 @@ for ih in range(len(hours)):
     concat_cmd='cdo cat '+file_name+' '+files_path+'lffd'+hour+'0000_hour_concat.nc'
     a=os.system(concat_cmd)
     if a:continue
-    sum_cmd='cdo hoursum '+files_path+'lffd'+hour+'0000_hour_concat.nc '+path+'1h_TOT_PREC/lffd'+hour+'0000.nc'
+    sum_cmd='cdo timsum '+files_path+'lffd'+hour+'0000_hour_concat.nc '+'1h_TOT_PREC/lffd'+hour+'0000.nc'
     a=os.system(sum_cmd)
     if a:continue
-    rm_cmd='rm '+files_path+'lffd'+hour+'0000_hour_concat.nc '+file_name
-    a=os.system(rm_cmd)
+    if ih!=0:
+        rm_cmd='rm '+files_path+'lffd'+hour+'0000_hour_concat.nc '+file_name
+    else:
+        rm_cmd='rm '+files_path+'lffd'+hour+'0000_hour_concat.nc '
+        a=os.system(rm_cmd)
     if a:continue
     
 #    mv_cmd='mv '+path+'lffd'+hour+'0000_hsum.nc '+path+'1h_TOT_PREC/lffd'+hour+'0000.nc

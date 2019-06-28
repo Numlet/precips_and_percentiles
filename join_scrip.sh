@@ -7,5 +7,6 @@
 #SBATCH --time=20:00:00
 #SBATCH --account=pr04
 
-python decompress_minute_output.py $1
+#python decompress_minute_output.py $1
+echo 'begin with TOT_PREC'
 python create_TOT_PREC.py $1
