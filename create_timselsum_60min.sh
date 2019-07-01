@@ -7,5 +7,5 @@
 #SBATCH --output=create_full_arrays.out
 #SBATCH --constraint=gpu
 
-cdo runsum,3 full_array.nc full_array_18min.nc
+cdo timselsum,10 full_array.nc full_array_60min.nc
 

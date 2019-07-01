@@ -107,6 +107,7 @@ for ih in range(len(hours)):
     if a:continue
     if ih!=0:
         rm_cmd='rm '+files_path+'lffd'+hour+'0000_hour_concat.nc '+file_name
+        a=os.system(rm_cmd)
     else:
         rm_cmd='rm '+files_path+'lffd'+hour+'0000_hour_concat.nc '
         a=os.system(rm_cmd)

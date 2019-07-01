@@ -8,5 +8,5 @@
 #SBATCH --constraint=gpu
 
 
-cdo runsum,5 full_array.nc full_array_30min.nc
+cdo timselsum,4 full_array.nc full_array_24min.nc
 
