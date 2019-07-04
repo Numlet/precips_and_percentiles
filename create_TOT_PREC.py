@@ -24,7 +24,7 @@ jle.Create_folder("1h_TOT_PREC")
 
 
 
-#year='2042'
+#year='2005'
 year=str(sys.argv[1])
 
 hours=jle.Hourly_time_list(start_date='2000010100',end_date='2000010500')
@@ -38,12 +38,13 @@ files_path=year+'/'
 
 missing_hour_files=[]
 print(year)
-
+#%%
 for ih in range(len(hours)):
-    
     files_to_concat=[]
+    hour=hours[ih]
+    if os.path.exists('1h_TOT_PREC/lffd'+hour+'0000.nc'):continue
+
     if ih!=0:
-        hour=hours[ih]
         hour_minus=hours[ih-1]
         files_to_concat.append(files_path+'lffd'+hour_minus+'0600.nc')
         files_to_concat.append(files_path+'lffd'+hour_minus+'1200.nc')
@@ -57,7 +58,7 @@ for ih in range(len(hours)):
         files_to_concat.append(files_path+'lffd'+hour+'0000.nc')
     if ih==0:
         prev_year=str(int(year)-1)
-        hour=hours[ih]
+#        hour=hours[ih]
         hour_minus=prev_year+'123123'
         if not os.path.exists(prev_year+'/lffd'+hour_minus+'0600.nc'):
             print("Previous year folder does not exist.")
@@ -80,7 +81,10 @@ for ih in range(len(hours)):
     for file in files_to_concat:
         if not os.path.exists(file):
             print('waiting for file '+file)
-            time.sleep(10*60)
+            
+            if ih==0:time.sleep(10*60)
+            else:continue
+            
             if not os.path.exists(file):continue
 #    if not files_path+'lffd'+hour+'0000.nc' in files:continue
 #    if not files_path+'lffd'+hour+'0600.nc' in files:continue
