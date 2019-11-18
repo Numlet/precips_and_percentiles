@@ -1,6 +1,9 @@
 #cp /store/c2sm/pr04/jvergara/RUNS_IN_SCRATCH/GA_fine_ERA/lm_f/6min_precip/day* . 
 mkdir -p day_files
 rsync -aq /store/c2sm/pr04/jvergara/RUNS_IN_SCRATCH/MPI_near_future/lm_f/6min_precip/day* day_files/ 
+rsync -aq /store/c2sm/pr04/jvergara/RUNS_IN_SCRATCH/MPI_near_future/lm_f/6min_precip/lffd????0101000000.nc day_files/ 
+
+
 # 2046 2047 2048 2049 2050
 for year in 2040 2041 2042 2043 2044 2045 2046 2047 2048 2049 2050 
 do
