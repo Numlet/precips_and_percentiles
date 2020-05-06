@@ -5,7 +5,7 @@
 #SBATCH --nodes=1
 #SBATCH --partition=normal
 #SBATCH --time=24:00:00
-#SBATCH --account=pr04
+#SBATCH --account=pr94
 
 python decompress_minute_output.py $1
 echo 'begin with TOT_PREC'

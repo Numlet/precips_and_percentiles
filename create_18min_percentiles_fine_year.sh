@@ -1,6 +1,6 @@
 #!/bin/bash -l
 #
-#SBATCH --account=pr04
+#SBATCH --account=pr94
 #SBATCH --time=24:00:00
 #SBATCH --job-name=percentiles18min
 #SBATCH --nodes=1
